@@ -2,7 +2,7 @@
 title: Hello-Fuwar
 published: 2025-10-01
 description: '记录小站搭建过程'
-image: '/assets/images/Screenshot 2025-10-01 at 19-45-42.png'
+image: 'https://img.111pan.cn/f/XasW/Screenshot%202025-10-01%20at%2019-45-42.png'
 tags: [Fuwari]
 category: '分享记录'
 draft: false 
@@ -17,7 +17,7 @@ lang: 'zh_CN'
 
 所以在一次偶然的机会,我发现了Fuwar这个静态博客框架,并且那篇文章提供了详细的教程 [原文](https://2x.nz/posts/fuwari/) 我根据教程快速的上手了一下,很快就能够搭建出一个一看就能够拥有无限想象的博客
 
-![[Pasted image 20251001201156.png](/assets/images/Pasted%20image%2020251001201156.png)]
+![[Pasted image 20251001201156.png](https://img.111pan.cn/f/bvSw/Pasted%20image%2020251001201156.png)]
 
 ## 让我们开始吧
 ###### 首先我们需要用到下列东西
@@ -30,10 +30,10 @@ lang: 'zh_CN'
 ###### 首先Fork一份Fuwar
 - 登录Github
 - 前往Fuwar的Github模板仓库:[https://github.com/saicaca/fuwari](https://github.com/saicaca/fuwari)
-- ![[caac1edd66059c5431084ef9b6886510.png](/assets/images/caac1edd66059c5431084ef9b6886510.png)]
+- ![[caac1edd66059c5431084ef9b6886510.png](https://img.111pan.cn/f/2PuB/caac1edd66059c5431084ef9b6886510.png)]
 -  如上图点击Fork按钮
 - 进入一个新的页面,直接点击下面的绿色按钮即可,因为我这里已经Fork过了所以看不到那个页面了
-- 然后前往你刚才Fork后的仓库![[55c6638f552a22673b8cd78a58cd3dfe.png]](/assets/images/55c6638f552a22673b8cd78a58cd3dfe.png)
+- 然后前往你刚才Fork后的仓库![[55c6638f552a22673b8cd78a58cd3dfe.png]](![/assets/images/55c6638f552a22673b8cd78a58cd3dfe.png](https://img.111pan.cn/f/mZTX/55c6638f552a22673b8cd78a58cd3dfe.png))
 - 先点击上图中的绿色按钮,再到展开的窗口中复制最上面的那一行命令
 - 到你的电脑的一个合适的位置创建一个文件夹,比如**blog**
 - 然后使用终端导航到你创建的文件夹中

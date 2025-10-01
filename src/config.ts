@@ -17,7 +17,7 @@ export const siteConfig: SiteConfig = {
 	},
 	banner: {
 		enable: false,
-		src: "assets/images/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "https://img.111pan.cn/f/QzFd/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image
@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		{
-		  src: '/assets/images/avatar.png',    // Path of the favicon, relative to the /public directory
+		  src: 'https://img.111pan.cn/f/7DUO/avatar.png',    // Path of the favicon, relative to the /public directory
 		  theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
 		  sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		}
