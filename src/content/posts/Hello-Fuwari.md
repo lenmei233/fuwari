@@ -1,5 +1,5 @@
 ---
-title: Hello-Fuwar
+title: Hello-Fuwari
 published: 2025-10-01
 description: '记录小站搭建过程'
 image: 'https://img.111pan.cn/f/XasW/Screenshot%202025-10-01%20at%2019-45-42.png'
