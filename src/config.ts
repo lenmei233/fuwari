@@ -31,10 +31,10 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		{
-		  src: 'https://img.111pan.cn/f/7DUO/avatar.png',    // Path of the favicon, relative to the /public directory
-		  theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
-		  sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
-		}
+			src: "https://img.111pan.cn/f/7DUO/avatar.png", // Path of the favicon, relative to the /public directory
+			theme: "light", // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
+			sizes: "32x32", // (Optional) Size of the favicon, set only if you have favicons of different sizes
+		},
 	],
 };
 
@@ -44,15 +44,16 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Archive,
 		LinkPreset.About,
 		{
-			name: "GitHub",
-			url: "https://github.com/lenmei233", // Internal links should not include the base path, as it is automatically added
-			external: true, // Show an external link icon and will open in a new tab
+			name: "友链",
+			url: "/friends/", // Internal links should not include the base path, as it is automatically added
+			external: false, // Show an external link icon and will open in a new tab
 		},
 	],
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "http://q.qlogo.cn/headimg_dl?dst_uin=1663996167&spec=640&img_type=jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar:
+		"http://q.qlogo.cn/headimg_dl?dst_uin=1663996167&spec=640&img_type=jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "lenmei233",
 	bio: "A person who loves coding , Welcome to my blog!",
 	links: [
