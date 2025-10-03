@@ -31,7 +31,7 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		{
-			src: "https://img.111pan.cn/f/7DUO/avatar.png", // Path of the favicon, relative to the /public directory
+			src: "https://img.111pan.cn/f/vbhn/avatar.png", // Path of the favicon, relative to the /public directory
 			theme: "light", // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
 			sizes: "32x32", // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		},
@@ -53,7 +53,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar:
-		"https://img.111pan.cn/f/7DUO/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		"https://img.111pan.cn/f/vbhn/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "lenmei233",
 	bio: "A person who loves coding , Welcome to my blog!",
 	links: [
