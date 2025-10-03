@@ -53,7 +53,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar:
-		"https://thirdqq.qlogo.cn/g?b=sdk&nk=1663996167&s=100", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		"https://img.111pan.cn/f/7DUO/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "lenmei233",
 	bio: "A person who loves coding , Welcome to my blog!",
 	links: [
