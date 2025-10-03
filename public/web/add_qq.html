@@ -1,0 +1,19 @@
+<html>
+<script language="javascript" type="text/javascript">
+  // 检测设备类型
+  const uag = navigator.userAgent;
+  // 排除iPad（按手机逻辑处理）
+  const isiPad = uag.match(/(iPad).*OS\s((\d_)+)/);
+  // 识别安卓/iOS手机
+  const isMobile = !isiPad && (uag.match(/(iPhone\sOS)/) || uag.match(/(Android)/));
+
+  // 自动跳转对应链接
+  if (isMobile) {
+    // 手机端：唤起QQ好友资料页
+    location.href = "mqqapi://card/show_pslcard?src_type=internal&version=1&uin=1663996167&card_type=person&source=sharecard";
+  } else {
+    // 电脑端：弹出加好友框
+    location.href = "tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1663996167";
+  }
+</script>
+</html>
