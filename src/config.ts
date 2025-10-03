@@ -16,7 +16,7 @@ export const siteConfig: SiteConfig = {
 		fixed: false, // Hide the theme color picker for visitors
 	},
 	banner: {
-		enable: false,
+		enable: true,
 		src: "https://img.111pan.cn/f/QzFd/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
@@ -53,7 +53,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar:
-		"http://q.qlogo.cn/headimg_dl?dst_uin=1663996167&spec=640&img_type=jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		"https://thirdqq.qlogo.cn/g?b=sdk&nk=1663996167&s=100", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "lenmei233",
 	bio: "A person who loves coding , Welcome to my blog!",
 	links: [
