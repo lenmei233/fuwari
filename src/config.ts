@@ -62,7 +62,7 @@ export const profileConfig: ProfileConfig = {
 			icon: "fa6-brands:qq", // Visit https://icones.js.org/ for icon codes
 			// You will need to install the corresponding icon set if it's not already included
 			// `pnpm add @iconify-json/<icon-set-name>`
-			url: "tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=1663996167&website=blog.lenmei233.top",
+			url: "https://blog.lenmei233.top/web/add_qq",
 		},
 		{
 			name: "Email",
