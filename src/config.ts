@@ -1,4 +1,5 @@
 import type {
+	CommentConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
 	NavBarConfig,
@@ -48,7 +49,7 @@ export const navBarConfig: NavBarConfig = {
 			url: "/friends/", // Internal links should not include the base path, as it is automatically added
 			external: false, // Show an external link icon and will open in a new tab
 		},
-				{
+		{
 			name: "状态",
 			url: "https://status1.lenmei233.top/", // Internal links should not include the base path, as it is automatically added
 			external: true, // Show an external link icon and will open in a new tab
@@ -57,8 +58,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar:
-		"https://img.111pan.cn/f/vbhn/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "https://img.111pan.cn/f/vbhn/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "lenmei233",
 	bio: "A person who loves coding , Welcome to my blog!",
 	links: [
@@ -92,4 +92,11 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
 	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
 	// Please select a dark theme, as this blog theme currently only supports dark background color
 	theme: "github-dark",
+};
+export const commentConfig: CommentConfig = {
+	waline: {
+		serverURL: "https://waline.lenmei233.top",
+
+		login: "enable",
+	},
 };
