@@ -2,7 +2,7 @@
 title: Hello-Fuwari
 published: 2025-10-01
 description: '记录小站搭建过程'
-image: '/Screenshot%202025-10-01%20at%2019-45-42.png'
+image: '/images/Screenshot%202025-10-01%20at%2019-45-42.png'
 tags: [Fuwari]
 category: '分享记录'
 draft: false 
@@ -17,7 +17,7 @@ lang: 'zh_CN'
 
 直到一次偶然的机会，我发现了Fuwari这个静态博客框架，而且那篇介绍文章还提供了详细教程（[原文链接](https://2x.nz/posts/fuwari/)）。我跟着教程快速上手，很快就搭建出了一个“能让人看到无限可能”的博客雏形。
 
-![博客雏形截图](/Pasted%20image%2020251001201156.png)
+![博客雏形截图](/images/Pasted%20image%2020251001201156.png)
 
 ## 让我们开始吧
 ###### 首先我们需要准备这些工具

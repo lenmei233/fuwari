@@ -2,7 +2,7 @@
 title: Leapcell 免费云容器实测：能否替代 Cloud Run,Vercel？
 published: 2025-10-03
 description: 'Leapcell 免费云容器实测'
-image: '/Screenshot%202025-10-03%20at%2019-01-53%20Leapcell%20Ship%20All%20Your%20Code%20Online%201.png'
+image: '/images/Screenshot%202025-10-03%20at%2019-01-53%20Leapcell%20Ship%20All%20Your%20Code%20Online%201.png'
 tags: [Leapcell,Web]
 category: '分享记录'
 draft: false 
@@ -35,26 +35,26 @@ lang: 'zh_CN'
 
 成功打开官网后，首页醒目的 “免费部署你的项目” 标语极具吸引力，简洁的界面也让操作预期变得清晰，接下来便是注册账号进入实测环节。
 
-![官网截图](/Screenshot%202025-10-03%20at%2019-01-53%20Leapcell%20Ship%20All%20Your%20Code%20Online%201.png)
+![官网截图](/images/Screenshot%202025-10-03%20at%2019-01-53%20Leapcell%20Ship%20All%20Your%20Code%20Online%201.png)
 ### 2. 项目部署：GitHub 关联 + 框架适配很贴心
 
 注册并登录账号后，进入 “创建服务” 页面，我选择了自己博客的 GitHub 仓库（基于 Astro 框架）进行测试。令人惊喜的是，Leapcell**原生支持 Astro 项目**，且自动识别并填写好了部署参数（如构建命令、输出目录等），无需手动配置 —— 对于不熟悉部署细节的开发者来说，这种 “无脑操作” 的体验非常友好。
 
 确认参数无误后，直接点击 “Deploy” 按钮，平台开始自动拉取代码、构建项目。从部署日志来看，整个过程流畅无报错，进度条实时更新，最终耗时约 2 分钟完成部署，速度处于同类平台的中上水平。
-![部署页面截图](/Screenshot%202025-10-03%20at%2019-06-11%20Create%20Service%20Leapcell.png)
+![部署页面截图](/images/Screenshot%202025-10-03%20at%2019-06-11%20Create%20Service%20Leapcell.png)
 ### 3. 部署完成：仪表盘与访问体验
 
 部署成功后，自动跳转至服务仪表盘，界面清晰展示了服务状态、部署记录、访问统计等信息，便于后续管理。点击仪表盘提供的默认域名（格式为 xxx.leapcell.app），在 “魔法上网” 状态下，页面加载速度很快，博客的静态资源、动态交互均正常显示，无卡顿或样式错乱问题。
-![部署效果截图](/QQ20251003-190944.png)
+![部署效果截图](/images/QQ20251003-190944.png)
 
 为了进一步验证访问情况，我进行了国内多线路测速（结果如下图），发现未使用 “魔法” 时，国内地区无法访问，与 Vercel 的国内访问体验（延迟约 100-200ms）差距明显。
-![仪表盘截图](/Screenshot%202025-10-03%20at%2019-29-16%20fuwari-1b8k8ui%20-%20Service%20Leapcell%201.png)
+![仪表盘截图](/images/Screenshot%202025-10-03%20at%2019-29-16%20fuwari-1b8k8ui%20-%20Service%20Leapcell%201.png)
 
-![测速截图](/Screenshot%202025-10-03%20at%2019-11-08%20apn.leapcell.app_%E5%9C%A8%E7%BA%BFping_%E5%A4%9A%E5%9C%B0ping_%E5%A4%9A%E7%BA%BF%E8%B7%AFping_%E6%8C%81%E7%BB%ADping_%E7%BD%91%E7%BB%9C%E5%BB%B6%E8%BF%9F%E6%B5%8B%E8%AF%95_%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BB%B6%E8%BF%9F%E6%B5%8B%E8%AF%95%201.png)
+![测速截图](/images/Screenshot%202025-10-03%20at%2019-11-08%20apn.leapcell.app_%E5%9C%A8%E7%BA%BFping_%E5%A4%9A%E5%9C%B0ping_%E5%A4%9A%E7%BA%BF%E8%B7%AFping_%E6%8C%81%E7%BB%ADping_%E7%BD%91%E7%BB%9C%E5%BB%B6%E8%BF%9F%E6%B5%8B%E8%AF%95_%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%BB%B6%E8%BF%9F%E6%B5%8B%E8%AF%95%201.png)
 ### 4. 自定义域名绑定：操作简单但效果有限
 
 考虑到实际使用中通常会绑定自定义域名，我尝试将自己的域名（[lenmei.eu.org](https://lenmei.eu.org)）关联到 Leapcell 服务。在 “域名管理” 页面，按照提示添加 DNS 记录后，等待约 10 分钟完成解析。绑定后通过自定义域名访问，在 “魔法” 加持下速度依旧流畅，但国内无 “魔法” 访问时，仍面临无法打开的问题 —— 这说明域名绑定仅解决了 “域名个性化”，并未改善国内访问体验,对比Vercel只需要绑定域名即可正常访问,这一点决定无法替代Vercel。
-![绑定域名截图](/Screenshot%202025-10-03%20at%2019-15-09%20lenmei.eu.org%20-%20Domain%20Leapcell%201.png)
+![绑定域名截图](/images/Screenshot%202025-10-03%20at%2019-15-09%20lenmei.eu.org%20-%20Domain%20Leapcell%201.png)
 ## 三、实测总结：优势明显但短板突出
 
 ### 1. 值得肯定的亮点
