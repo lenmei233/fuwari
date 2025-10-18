@@ -1,5 +1,5 @@
 ---
-title: Hello-Fuwari
+title: 使用Cloudflare部署你的免费网站统计 -- Web-Analytics
 published: 2025-10-18
 description: '本站统计功能实现的方法 '
 image: '/images/68747470733a2f2f69302e77702e636f6d2f757869616f68616e2e6769746875622e696f2f76322f323032342f30392f313732373030373933372e77656270.jpg'
