@@ -2,7 +2,7 @@
 title: Hello-Fuwari
 published: 2025-10-01
 description: '记录小站搭建过程'
-image: 'https://img.111pan.cn/f/XasW/Screenshot%202025-10-01%20at%2019-45-42.png'
+image: '/Screenshot%202025-10-01%20at%2019-45-42.png'
 tags: [Fuwari]
 category: '分享记录'
 draft: false 
@@ -17,7 +17,7 @@ lang: 'zh_CN'
 
 直到一次偶然的机会，我发现了Fuwari这个静态博客框架，而且那篇介绍文章还提供了详细教程（[原文链接](https://2x.nz/posts/fuwari/)）。我跟着教程快速上手，很快就搭建出了一个“能让人看到无限可能”的博客雏形。
 
-![博客雏形截图](https://img.111pan.cn/f/bvSw/Pasted%20image%2020251001201156.png)
+![博客雏形截图](/Pasted%20image%2020251001201156.png)
 
 ## 让我们开始吧
 ###### 首先我们需要准备这些工具
@@ -32,10 +32,10 @@ lang: 'zh_CN'
 1. 登录你的Github账号
 2. 访问Fuwari的官方模板仓库：[https://github.com/saicaca/fuwari](https://github.com/saicaca/fuwari)
 3. 点击仓库页面右上角的「Fork」按钮（如下图）
-   ![点击Fork按钮截图](https://img.111pan.cn/f/2PuB/caac1edd66059c5431084ef9b6886510.png)
+   ![点击Fork按钮截图](/caac1edd66059c5431084ef9b6886510.png)
 4. 跳转后无需修改其他配置，直接点击绿色的「Create fork」按钮即可（注：若已Fork过，此按钮会显示为「Sync fork」）
 5. 进入你Fork后的仓库页面，点击绿色的「Code」按钮，复制弹出窗口中最上方的Git地址（示例：`https://github.com/你的用户名/fuwari.git`）
-   ![复制Git地址截图](https://img.111pan.cn/f/mZTX/55c6638f552a22673b8cd78a58cd3dfe.png)
+   ![复制Git地址截图](/55c6638f552a22673b8cd78a58cd3dfe.png)
 
 ###### 第二步：本地部署环境
 1. 在电脑上新建一个文件夹（如命名为「blog」），用于存放博客代码
