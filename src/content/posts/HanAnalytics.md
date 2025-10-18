@@ -19,7 +19,7 @@ lang: 'zh_CN'
 
 ## 一、HanAnalytics 特点
 
-::github {repo="uxiaohan/HanAnalytics"}
+::github{repo="uxiaohan/HanAnalytics"}
 
 Han-Analytics 是一个简单的网络分析跟踪器和仪表板，托管在被称为 “赛博菩萨” 的 Cloudflare 上，可无成本稳定运行，每天可达 10 万次免费统计。无需域名、服务器、数据库，托管在 Cloudflare Pages 上即可快速部署网站分析仪表板。
 
@@ -41,7 +41,7 @@ Han-Analytics 是一个简单的网络分析跟踪器和仪表板，托管在被
 
 首先进入 HanAnalytics 的 GitHub 仓库
 
-::github {repo="uxiaohan/HanAnalytics"}
+::github{repo="uxiaohan/HanAnalytics"}
 
 然后点击 “Use this template”，在弹出的菜单中选择 “Create a new repository”
 
