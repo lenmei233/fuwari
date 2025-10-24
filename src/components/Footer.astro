@@ -17,8 +17,36 @@ const currentYear = new Date().getFullYear();
         Powered by
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://astro.build">Astro</a> &
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://github.com/saicaca/fuwari">Fuwari</a><br>
+        <span class="mt-2 inline-block">本站重建后正常运行：</span>
+        <span id="uptime" class="text-[var(--primary)] font-medium"></span>
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://icp.gov.moe/?keyword=blog.lenmei233.top">萌ICP备20240488号</a><br>
         <a class="transition link text-[var(--primary)] font-medium" href="https://icp.redcha.cn/beian/ICP-2025080031.html" target="_blank">茶ICP备2025080031号</a><br>
     </div>
 <script defer src="https://hananalytics-ksm.pages.dev/tracker.min.js" data-website-id="blog"></script>
+<script>
+        const launchDate = new Date(2025, 9, 1, 0, 0, 0).getTime();
+        const uptimeElement = document.getElementById('uptime');
+
+        // 计算并更新运行时间
+        function updateUptime() {
+            if (!uptimeElement) return;
+            
+            const now = new Date().getTime(); 
+            const diff = now - launchDate; 
+            
+            // 转换为天、时、分、秒
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            // 格式化显示
+            uptimeElement.textContent = `${days}天 ${String(hours).padStart(2, '0')}时 ${String(minutes).padStart(2, '0')}分 ${String(seconds).padStart(2, '0')}秒`;
+        }
+
+        // 初始执行一次
+        updateUptime();
+        // 每秒更新一次
+        setInterval(updateUptime, 1000);
+    </script>
 </div>
