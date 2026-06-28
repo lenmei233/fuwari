@@ -2,7 +2,7 @@
 title: 当时只道是寻常：那些藏在普通日子里的最后一次
 published: 2026-06-29
 description: '很多告别，发生时都悄无声息。当时只觉得是普通的一天，后来才惊觉，那竟是故事翻页的节点。'
-image: '/images/last-time-ordinary.jpg' # 可以替换为你博客的配图路径
+image: '/images/1782671661461.png'
 tags: [随笔, 感悟, 岁月]
 category: '生活随笔'
 draft: false 
