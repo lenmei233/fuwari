@@ -2,16 +2,17 @@
 import { Icon } from "astro-icon/components";
 
 interface Props {
-	/** page = 当前文章访问量（会自增）；site = 全站总访问量（只读显示，自增由脚本统一处理） */
-	mode: "page" | "site";
+	/** page = 当前文章访问量（会自增，用 location.pathname）；site = 全站总访问量（只读显示，自增由脚本统一处理）；card = 文章卡片上的某篇访问量（只读显示，需传 path） */
+	mode: "page" | "site" | "card";
+	path?: string;
 	label?: string;
 	icon?: string;
 }
 
-const { mode, label = "", icon = "material-symbols:visibility" } = Astro.props;
+const { mode, path, label = "", icon = "material-symbols:visibility" } = Astro.props;
 ---
 
-<span class="view-counter flex flex-row items-center" data-vc={mode}>
+<span class="view-counter flex flex-row items-center" data-vc={mode} data-vc-path={path ?? ""}>
 	<span
 		class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2"
 	>
@@ -25,11 +26,9 @@ const { mode, label = "", icon = "material-symbols:visibility" } = Astro.props;
 	if (!(window as any).__vcInit) {
 		(window as any).__vcInit = true;
 
-		async function vcPost(path: string): Promise<number | null> {
+		async function vcRequest(p: string, method: string): Promise<number | null> {
 			try {
-				const res = await fetch(`/api/views?path=${encodeURIComponent(path)}`, {
-					method: "POST",
-				});
+				const res = await fetch(`/api/views?path=${encodeURIComponent(p)}`, { method });
 				if (!res.ok) return null;
 				const data = await res.json();
 				return typeof data.views === "number" ? data.views : null;
@@ -37,34 +36,39 @@ const { mode, label = "", icon = "material-symbols:visibility" } = Astro.props;
 				return null;
 			}
 		}
+		const vcPost = (p: string) => vcRequest(p, "POST");
+		const vcGet = (p: string) => vcRequest(p, "GET");
 
 		function fmt(n: number | null): string {
 			return n == null ? "—" : n.toLocaleString();
 		}
+		function setCount(el: Element, n: number | null): void {
+			const c = el.querySelector(".vc-count");
+			if (c) c.textContent = fmt(n);
+		}
 
 		async function vcUpdate() {
 			// 全站访问量：每次页面访问 +1（整页仅一次）
-			let siteViews: number | null = null;
-			try {
-				siteViews = await vcPost("__site__");
-			} catch {}
+			const siteViews = await vcPost("__site__");
 
-			// 当前文章访问量（仅文章页有 [data-vc="page"]）
+			// 当前文章访问量（仅文章页有 [data-vc="page"]），自增 + 显示
 			const pageEl = document.querySelector('[data-vc="page"]');
 			if (pageEl) {
-				const v = await vcPost(location.pathname);
-				const c = pageEl.querySelector(".vc-count");
-				if (c) c.textContent = fmt(v);
+				const p = (pageEl as HTMLElement).dataset.vcPath || location.pathname;
+				setCount(pageEl, await vcPost(p));
 			}
 
-			// 更新所有“全站访问量”显示
+			// 全站计数器显示
 			if (siteViews != null) {
-				document
-					.querySelectorAll('[data-vc="site"] .vc-count')
-					.forEach((el) => {
-						el.textContent = fmt(siteViews);
-					});
+				document.querySelectorAll('[data-vc="site"]').forEach((el) => setCount(el, siteViews));
 			}
+
+			// 文章卡片：只读显示对应文章阅读量（不自增，避免首页浏览虚高）
+			document.querySelectorAll('[data-vc="card"]').forEach(async (el) => {
+				const p = (el as HTMLElement).dataset.vcPath;
+				if (!p) return;
+				setCount(el, await vcGet(p));
+			});
 		}
 
 		// 初始加载
