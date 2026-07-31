@@ -1,6 +1,7 @@
 ---
 
 import { profileConfig } from "../config";
+import ViewCounter from "./ViewCounter.astro";
 import { url } from "../utils/url-utils";
 
 const currentYear = new Date().getFullYear();
@@ -20,7 +21,8 @@ const currentYear = new Date().getFullYear();
         <a class="transition link text-[var(--primary)] font-medium" target="_blank" href="https://icp.gov.moe/?keyword=blog.lenmei233.top">萌ICP备20240488号</a><br>
         <a class="transition link text-[var(--primary)] font-medium" href="https://icp.redcha.cn/beian/ICP-2025080031.html" target="_blank">茶ICP备2025080031号</a><br>
         <span class="mt-2 inline-block">本站重建后正常运行：</span>
-        <span id="uptime" class="text-[var(--primary)] font-medium"></span>
+        <span id="uptime" class="text-[var(--primary)] font-medium"></span><br>
+        <span class="mt-2 inline-block">全站访问量：</span><ViewCounter mode="site"></ViewCounter>
 
     </div>
 <script defer src="https://hananalytics-ksm.pages.dev/tracker.min.js" data-website-id="blog"></script>
