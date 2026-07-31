@@ -33,8 +33,7 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		{
 			src: "/images/avatar.png", // Path of the favicon, relative to the /public directory
-			theme: "light", // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
-			sizes: "32x32", // (Optional) Size of the favicon, set only if you have favicons of different sizes
+			sizes: "any", // (Optional) Size of the favicon; "any" works for all sizes and both light/dark modes
 		},
 	],
 };
