@@ -6,18 +6,20 @@ import { i18n } from "../../i18n/translation";
 interface Props {
 	id: string;
 	name?: string;
+	nameKey?: I18nKey;
 	isCollapsed?: boolean;
 	collapsedHeight?: string;
 	class?: string;
 	style?: string;
 }
-const { id, name, isCollapsed, collapsedHeight, style } = Astro.props;
+const { id, name, nameKey, isCollapsed, collapsedHeight, style } = Astro.props;
 const className = Astro.props.class;
+const titleText = nameKey ? i18n(nameKey) : name;
 ---
 <widget-layout data-id={id} data-is-collapsed={String(isCollapsed)} class={"pb-4 card-base " + className} style={style}>
     <div class="font-bold transition text-lg text-neutral-900 dark:text-neutral-100 relative ml-8 mt-4 mb-2
         before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
-        before:absolute before:left-[-16px] before:top-[5.5px]">{name}</div>
+        before:absolute before:left-[-16px] before:top-[5.5px]" data-i18n={nameKey}>{titleText}</div>
     <div id={id} class:list={["collapse-wrapper px-4 overflow-hidden", {"collapsed": isCollapsed}]}>
         <slot></slot>
     </div>

@@ -111,6 +111,10 @@ const bannerOffset =
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
+			// Load the language from local storage (avoid flash)
+			const storedLang = localStorage.getItem('lang') || 'zh_CN';
+			document.documentElement.lang = storedLang.replace('_', '-');
+
 			// Load the theme from local storage
 			const theme = localStorage.getItem('theme') || DEFAULT_THEME;
 			switch (theme) {
@@ -211,6 +215,7 @@ import {
 	MAIN_PANEL_OVERLAPS_BANNER_HEIGHT
 } from "../constants/constants";
 import { siteConfig } from '../config';
+import { initI18n, toggleLang } from "../utils/i18n-client";
 
 /* Preload fonts */
 // (async function() {
@@ -369,6 +374,13 @@ function init() {
 	loadHue();
 	initCustomScrollbar();
 	showBanner();
+	initI18n();
+	document.addEventListener("click", (e) => {
+		const t = e.target as HTMLElement | null;
+		if (t && t.closest("#lang-switch")) {
+			toggleLang();
+		}
+	});
 }
 
 /* Load settings when entering the site */
