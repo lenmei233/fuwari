@@ -1,0 +1,63 @@
+---
+import { Icon } from "astro-icon/components";
+import ViewCounter from "../ViewCounter.astro";
+import WidgetLayout from "./WidgetLayout.astro";
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+const className = Astro.props.class;
+const style = Astro.props.style;
+---
+
+{/* 状态板块：全站访问量 + 正常运行时间，标题用 name 传入以避免改动 i18n 键 */}
+<WidgetLayout name="状态" id="site-status" class={className} style={style}>
+    <div class="flex flex-col gap-2 pb-2">
+        <span class="flex flex-row items-center text-sm text-neutral-700 dark:text-neutral-300">
+            <span class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
+                <Icon name="material-symbols:schedule-outline-rounded"></Icon>
+            </span>
+            <span>运行时间 <span id="site-uptime" class="transition text-[var(--primary)] font-medium tabular-nums">—</span></span>
+        </span>
+        <span class="text-sm text-neutral-700 dark:text-neutral-300">
+            <ViewCounter
+                mode="site"
+                label="全站访问量"
+                icon="material-symbols:visibility-outline-rounded"
+            ></ViewCounter>
+        </span>
+    </div>
+</WidgetLayout>
+
+<script>
+	// 正常运行时间：与页脚原有实现保持同一上线时间，逻辑等价迁移
+	// 侧边栏不在 Swup 的 container 内，脚本只执行一次，计时器持续更新
+	(() => {
+		const launchDate = new Date(2025, 9, 1, 0, 0, 0).getTime();
+		const pad = (n: number) => String(n).padStart(2, "0");
+
+		function updateUptime(): void {
+			const el = document.getElementById("site-uptime");
+			if (!el) return;
+			const diff = Date.now() - launchDate;
+			const days = Math.floor(diff / 86400000);
+			const hours = pad(Math.floor((diff % 86400000) / 3600000));
+			const minutes = pad(Math.floor((diff % 3600000) / 60000));
+			const seconds = pad(Math.floor((diff % 60000) / 1000));
+			el.textContent = `${days}天 ${hours}时 ${minutes}分 ${seconds}秒`;
+		}
+
+		updateUptime();
+		setInterval(updateUptime, 1000);
+	})();
+</script>
+
+<style is:global>
+    /* 状态板块内的数值统一用主题色高亮，与「运行时间」的数值保持一致；仅作用于本板块，不影响文章卡片上的访问量 */
+    #site-status .vc-count {
+        color: var(--primary);
+        font-weight: 500;
+        font-variant-numeric: tabular-nums;
+    }
+</style>

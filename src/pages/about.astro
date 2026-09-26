@@ -16,10 +16,59 @@ const { Content } = await render(aboutPost);
 ---
 <MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)}>
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full ">
-            <Markdown class="mt-2">
+        <div class="card-base z-10 relative w-full px-6 py-8 md:px-9 md:py-10">
+            <Markdown class="about-markdown">
                 <Content />
             </Markdown>
         </div>
     </div>
 </MainGridLayout>
+
+<style is:global>
+    /*
+     * 关于页布局（.about-markdown 只在此页出现，样式不会外溢到其他页面）：
+     * 1. 标题与正文之间加虚线分隔，建立页面层级；
+     * 2. 统一块级元素的竖向节奏，避免 GitHub 卡片间距被夹紧；
+     * 3. 两张捐赠二维码并排居中，单张限宽，避免图片主导整页；
+     */
+    .about-markdown.custom-md h1 {
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px dashed var(--line-divider);
+    }
+
+    .about-markdown.custom-md p,
+    .about-markdown.custom-md img,
+    .about-markdown.custom-md table,
+    .about-markdown.custom-md .card-github {
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    /* 仅包裹二维码的段落（其中没有文字）并排展示两张图片 */
+    .about-markdown.custom-md p:has(img):not(:has(:not(img))) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .about-markdown.custom-md img {
+        max-width: min(100%, 20rem);
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .about-markdown.custom-md p:has(img):not(:has(:not(img))) img {
+        /* 半行宽上限 + 可收缩，保证两张图始终同排且不拉伸变形 */
+        flex: 0 1 auto;
+        min-width: 0;
+        max-width: min(20rem, calc(50% - 0.5rem));
+        height: auto;
+    }
+    .about-markdown.custom-md > section > :last-child,
+    .about-markdown.custom-md > :last-child {
+        margin-bottom: 0;
+    }
+</style>
