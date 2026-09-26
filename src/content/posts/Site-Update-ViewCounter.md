@@ -7,6 +7,22 @@ category: '分享记录'
 draft: false
 lang: 'zh_CN'
 ---
+:::ai-summary{model="deepseek-v4.1-flash" provider="deepseek" updated="2026-09-27"}
+
+作者给自己的 Cloudflare Pages 博客加了一套站内访问量统计：访客能直接在文章页看到阅读量、在页脚看到全站访问量，数据全部存在自己的 KV 里，并顺手把积压的依赖漏洞从 168 个压到 17 个。
+
+### 🤔 为什么不用现成统计
+
+Google Analytics 或作者此前用的 HanAnalytics 都能统计，但访客在页面上什么都看不到，且要么把数据喂给巨头、要么再起一个服务，违背了他「能不花钱、能不麻烦就不麻烦」的原则。而 Pages 自带的 Pages Functions 与 KV 全在免费额度内，正合适。
+
+### 🧱 方案与防重复计数
+
+在 `functions/api/views.ts` 里写一个接口，用 KV 命名空间当计数器：POST 自增、GET 读取；全站访问量存在固定 key，每篇文章按 `location.pathname` 单独计数。前端用 ViewCounter 组件首次加载拉一次数据，并监听 Swup 的 `page:view` 事件，无刷新切换页面后再次更新。作者明确说明自己按每次加载都 +1 统计，刷新会略虚高。
+
+### ⚠️ 部署必做动作
+
+代码推上 GitHub 后 Pages 会自动构建，但还要在「设置 → Functions → KV namespace bindings」里把命名空间绑定上去，变量名必须叫 `VIEWS`（对应代码里的 `env.VIEWS`），然后重新部署；否则 `/api/views` 会报错、计数器一直停在 `—`。剩余的 17 个漏洞全部来自 astro 自身，需大版本升级才能清零，作者选择先跟随上游节奏。
+::::
 
 ## 前言
 

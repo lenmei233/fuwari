@@ -18,7 +18,9 @@ import remarkSectionize from "remark-sectionize";
 import { expressiveCodeConfig } from "./src/config.ts";
 import { pluginLanguageBadge } from "./src/plugins/expressive-code/language-badge.ts";
 import { AdmonitionComponent } from "./src/plugins/rehype-component-admonition.mjs";
+import { AiSummaryComponent } from "./src/plugins/rehype-component-ai-summary.mjs";
 import { GithubCardComponent } from "./src/plugins/rehype-component-github-card.mjs";
+import { remarkAiSummaryMeta } from "./src/plugins/remark-ai-summary-meta.mjs";
 import { parseDirectiveNode } from "./src/plugins/remark-directive-rehype.js";
 import { remarkExcerpt } from "./src/plugins/remark-excerpt.js";
 import { remarkReadingTime } from "./src/plugins/remark-reading-time.mjs";
@@ -106,9 +108,14 @@ export default defineConfig({
 		remarkPlugins: [
 			remarkMath,
 			remarkReadingTime,
-			remarkExcerpt,
 			remarkGithubAdmonitionsToDirectives,
 			remarkDirective,
+			// 给 ai-summary 指令补 updated 属性（此时指令节点已经历 directive 解析）
+			remarkAiSummaryMeta,
+			// 必须放在 remarkDirective 之后：否则 `:::ai-summary` 还是一段普通文本，
+			// 会被这个插件当成文章摘要，导致列表页 description 变成 directive 语法。
+			// 也不能放到 remarkSectionize 之后：那时正文已被包进 section，取不到段落。
+			remarkExcerpt,
 			remarkSectionize,
 			parseDirectiveNode,
 		],
@@ -120,6 +127,7 @@ export default defineConfig({
 				{
 					components: {
 						github: GithubCardComponent,
+						"ai-summary": AiSummaryComponent,
 						note: (x, y) => AdmonitionComponent(x, y, "note"),
 						tip: (x, y) => AdmonitionComponent(x, y, "tip"),
 						important: (x, y) => AdmonitionComponent(x, y, "important"),

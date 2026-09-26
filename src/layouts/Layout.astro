@@ -577,3 +577,144 @@ if (window.swup) {
 	document.addEventListener("swup:enable", setup)
 }
 </script>
+
+<script is:inline>
+// AI 总结流式播放引擎
+// 摘要是静态内容（作者手写在 markdown 里），这里只负责「边看边出现」的播放效果。
+// 用 is:inline + 经典脚本而不是 module：脚本紧跟卡片之后同步执行，引擎一就绪就开始播放，
+// 不会有「标题已在、正文空着」的等待间隙。
+// Swup 换页时会重新执行内联脚本，所以下面用挂载标记保证引擎只装一次、钩子只注册一次。
+(function () {
+	if (window.__aiSummaryMounted) return;
+	window.__aiSummaryMounted = true;
+
+	// 收集 body 里的非空白文本节点并缓存原文；播放时按节点逐字追加
+	function collectTextNodes(body) {
+		var out = [];
+		var walker = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, {
+			acceptNode: function (n) {
+				return (n.nodeValue || "").trim() === ""
+					? NodeFilter.FILTER_REJECT
+					: NodeFilter.FILTER_ACCEPT;
+			},
+		});
+		var current = walker.nextNode();
+		while (current) {
+			out.push({ node: current, text: current.nodeValue || "" });
+			current = walker.nextNode();
+		}
+		return out;
+	}
+
+	function revealAll(source) {
+		for (var i = 0; i < source.length; i++) {
+			source[i].node.nodeValue = source[i].text;
+		}
+	}
+
+	function finish(card) {
+		card.classList.remove("is-armed", "is-playing");
+		card.setAttribute("data-ai-done", "");
+	}
+
+	function playSummary(card) {
+		var body = card.querySelector(".ai-summary-body");
+		if (!body) return;
+
+		var source = collectTextNodes(body);
+		var total = 0;
+		for (var i = 0; i < source.length; i++) total += source[i].text.length;
+
+		// 用户要求减少动效，或本来就没内容 —— 直接完整呈现
+		var reduceMotion = window.matchMedia
+			? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+			: false;
+		if (reduceMotion || total === 0) {
+			revealAll(source);
+			finish(card);
+			return;
+		}
+
+		// 先清空，再逐字长回来
+		for (var j = 0; j < source.length; j++) source[j].node.nodeValue = "";
+
+		var caret = document.createElement("span");
+		caret.className = "ai-caret";
+		caret.setAttribute("aria-hidden", "true");
+
+		card.classList.remove("is-armed");
+		card.classList.add("is-playing");
+
+		var charsPerSecond = Number(card.dataset.aiCharsPerSecond) || 320;
+		var perFrame = Math.max(1, charsPerSecond / 60);
+		var revealed = 0;
+		// 攒不够一个字符的小数部分，避免慢节奏下整体偏慢
+		var carry = 0;
+
+		function step() {
+			carry += perFrame;
+			var budget = Math.floor(carry);
+			carry -= budget;
+			revealed = Math.min(total, revealed + budget);
+
+			var remaining = revealed;
+			var lastWritten = null;
+			for (var k = 0; k < source.length; k++) {
+				var item = source[k];
+				if (remaining <= 0) {
+					item.node.nodeValue = "";
+				} else if (remaining >= item.text.length) {
+					item.node.nodeValue = item.text;
+					remaining -= item.text.length;
+					lastWritten = item.node;
+				} else {
+					item.node.nodeValue = item.text.slice(0, remaining);
+					remaining = 0;
+					lastWritten = item.node;
+				}
+			}
+
+			// 光标跟住最后一个已露出文字的节点
+			if (lastWritten) lastWritten.after(caret);
+
+			if (revealed >= total) {
+				caret.remove();
+				finish(card);
+				return;
+			}
+
+			requestAnimationFrame(step);
+		}
+
+		requestAnimationFrame(step);
+	}
+
+	// 每次加载都重新播放：不记录播放状态，刷新即重演。
+	// 只有 Swup 缓存带回的 DOM（已带 data-ai-done）才跳过，避免来回导航反复播放。
+	function initAiSummary() {
+		var cards = document.querySelectorAll("div.ai-summary");
+		for (var i = 0; i < cards.length; i++) {
+			var card = cards[i];
+			if (card.hasAttribute("data-ai-done")) continue;
+			// 正在播放中：同一时刻只跑一个动画，避免并发把状态提前收尾
+			if (card.classList.contains("is-playing")) continue;
+			playSummary(card);
+		}
+	}
+
+	// 供联调时手动重跑
+	window.__aiSummaryInit = initAiSummary;
+
+	// 首屏同步播放
+	initAiSummary();
+
+	// Swup 客户端导航后播放新页面的卡片
+	if (window.swup) {
+		window.swup.hooks.on("page:view", initAiSummary);
+	} else {
+		document.addEventListener("swup:enable", function () {
+			if (window.swup) window.swup.hooks.on("page:view", initAiSummary);
+		});
+	}
+})();
+</script>

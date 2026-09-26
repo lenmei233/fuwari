@@ -8,6 +8,26 @@ category: 'Sharing'
 draft: false 
 lang: 'en'
 ---
+:::ai-summary{model="deepseek-v4.1-flash" provider="deepseek" updated="2026-09-27"}
+
+The author introduces **Lap**, a lightweight proof-of-work alternative to CAPTCHAs he maintains: no image puzzles, no face scans, no cross-site tracking — the browser quietly does "a little maths" in the background and the user is verified, all running at zero cost on Cloudflare.
+
+### 🔐 What it is
+
+At its heart Lap is a CAPTCHA replacement: when someone submits your form, their browser quietly performs a series of hash computations to prove it is not a low-cost script, and only then is it allowed through. It is a rebrand fork of Cap, ported from a Node + Redis/Valkey architecture into a pure Serverless setup. The highlights are zero infrastructure (one Worker plus one D1 database), a friendly free tier, a self-hosted widget, no telemetry or cookies, and challenges issued from the Cloudflare node nearest the user.
+
+### ⚙️ How it works
+
+The browser first requests a challenge from `POST /:siteKey/challenge`, then brute-forces a nonce so that `sha256(salt + nonce)` starts with the target prefix — that is the proof of work. It submits the solution, receives a one-time redeem token, and your backend exchanges that token at `/siteverify` for the final verdict. Bots would need enormous hashing power in a very short time; a real browser barely notices, and every token is consumed on first use.
+
+### 🚀 Three deployment paths
+
+The recommended route is Workers + D1: clone the repo, create the D1 database, copy the `database_id` into `wrangler.toml`, apply the migrations, set `ADMIN_KEY` with `wrangler secret put`, then run `npm run deploy` and verify via `/health`. The alternatives are the Pages Functions catch-all route (bindings must be added manually in the dashboard) and GitHub Actions auto-deploy (just an API token and Account ID as repo secrets).
+
+### 🎛️ Tuning advice
+
+A site key can be configured with `difficulty` (default 4 — every +1 multiplies the work by roughly 16, exponential), `challengeCount` (default 80 — linear cost), `instrumentation`, `blockAutomatedBrowsers`, and a per-IP rate limit. The author's tip: when you want it stricter, raise `challengeCount` rather than `difficulty` for smoother, more predictable timing. The defaults take about a second on a modern laptop.
+::::
 
 ## Preface
 

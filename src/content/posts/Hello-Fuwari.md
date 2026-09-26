@@ -8,6 +8,23 @@ category: '分享记录'
 draft: false 
 lang: 'zh_CN'
 ---
+:::ai-summary{model="deepseek-v4.1-flash" provider="deepseek" updated="2026-09-27"}
+
+作者在 Typecho 服务商跑路、博客数据全丢之后，决定用「零成本 + 稳定」的方案重建个人站点，最终选择了静态博客框架 Fuwari，并配合 GitHub 与 Cloudflare Pages 完成建站与托管。全文是一篇面向新手的从零搭建记录。
+
+### 🧰 前置准备
+
+需要一个 GitHub 账号、Git、Node.js、一个 Cloudflare 账号，以及 Obsidian 这类 Markdown 编辑器；作者也调侃式地列出「能够独立思考的大脑 x1」。
+
+### 🚀 搭建四步走
+
+一是 Fork Fuwari 官方模板仓库；二是把仓库克隆到本地，安装 pnpm、执行 `pnpm install` 与 `pnpm add sharp` 完成本地环境；三是参考官方 Readme 修改站点名称、作者信息等基础配置；四是推送到 GitHub 并由 Cloudflare Pages 自动构建，同时获得免费 SSL 证书。
+
+### ⌨️ 常用命令速查
+
+文章最后整理了日常会用到的命令：`pnpm new-post <标题>` 新建文章、`pnpm dev` 本地预览、`pnpm build` 构建生产版本，以及首次使用 Git 时的全局账号配置和更新博客后的 `git add` / `git commit` / `git push` 三步上传流程。
+::::
+
 ## 前言
 最近国庆假期闲来无事，前段时间我的Typecho搭建的博客的服务商跑路了，导致我失去了我的博客。之前的博客也没什么内容，倒也不感觉可惜，但身为一个Coder，怎么能没有自己的博客呢？这相当于是你在互联网上的存在证明，是交友的渠道，也是精神的延续。
 

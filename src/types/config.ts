@@ -111,3 +111,14 @@ type WalineConfig = {
 
 	login?: string;
 };
+
+export type AiSummaryConfig = {
+	/** 是否渲染文章正文开头的 AI 总结卡片 */
+	enable: boolean;
+	/** 卡片标题，如 "AI 总结" */
+	title: string;
+	/** 是否展示「模型 / 厂商图标 / 更新时间」脚注 */
+	showFooter: boolean;
+	/** 播放速度（字符/秒），影响流式动画时长 */
+	charsPerSecond: number;
+};

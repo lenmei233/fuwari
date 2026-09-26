@@ -1,5 +1,6 @@
 ---
 import { Icon } from "astro-icon/components";
+import { getSiteStats } from "../../utils/content-utils";
 import ViewCounter from "../ViewCounter.astro";
 import WidgetLayout from "./WidgetLayout.astro";
 
@@ -9,9 +10,11 @@ interface Props {
 }
 const className = Astro.props.class;
 const style = Astro.props.style;
+const { totalWords, categoryCount } = await getSiteStats();
+const totalWordsText = totalWords.toLocaleString();
 ---
 
-{/* 状态板块：全站访问量 + 正常运行时间，标题用 name 传入以避免改动 i18n 键 */}
+{/* 状态板块：运行时间 / 全站访问量 / 全站总字数 / 分类数，标题用 name 传入以避免改动 i18n 键 */}
 <WidgetLayout name="状态" id="site-status" class={className} style={style}>
     <div class="flex flex-col gap-2 pb-2">
         <span class="flex flex-row items-center text-sm text-neutral-700 dark:text-neutral-300">
@@ -26,6 +29,18 @@ const style = Astro.props.style;
                 label="全站访问量"
                 icon="material-symbols:visibility-outline-rounded"
             ></ViewCounter>
+        </span>
+        <span class="flex flex-row items-center text-sm text-neutral-700 dark:text-neutral-300">
+            <span class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
+                <Icon name="material-symbols:notes-rounded"></Icon>
+            </span>
+            <span>全站总字数 <span class="transition text-[var(--primary)] font-medium tabular-nums">{totalWordsText}</span></span>
+        </span>
+        <span class="flex flex-row items-center text-sm text-neutral-700 dark:text-neutral-300">
+            <span class="transition h-6 w-6 rounded-md bg-black/5 dark:bg-white/10 text-black/50 dark:text-white/50 flex items-center justify-center mr-2">
+                <Icon name="material-symbols:category-outline-rounded"></Icon>
+            </span>
+            <span>分类数 <span class="transition text-[var(--primary)] font-medium tabular-nums">{categoryCount}</span></span>
         </span>
     </div>
 </WidgetLayout>

@@ -204,9 +204,20 @@ class TableOfContents extends HTMLElement {
         // wait for the onload animation to finish, which makes the `getBoundingClientRect` return correct values
         const element = document.querySelector('.prose');
         if (element) {
-            element.addEventListener('animationend', () => {
+            // 但 .prose 的入场动画可能在我们挂载前就已经结束（这个 <script> 是
+            // module，会被推迟执行），那时 animationend 永远不会再来，init() 就
+            // 永远不跑——TOC 既不高亮，ai-summary 里的小节标题也会残留在 TOC 里。
+            // 所以先看还有没有真的在跑的动画：有就继续等，没有就立刻初始化。
+            const running = (element.getAnimations?.() ?? []).some(
+                (a) => a.playState === 'running' || a.playState === 'pending'
+            );
+            if (running) {
+                element.addEventListener('animationend', () => {
+                    this.init();
+                }, { once: true });
+            } else {
                 this.init();
-            }, { once: true });
+            }
         } else {
             console.debug('Animation element not found');
         }
@@ -227,7 +238,14 @@ class TableOfContents extends HTMLElement {
 
         this.tocEntries = Array.from(
             document.querySelectorAll<HTMLAnchorElement>("#toc a[href^='#']")
-        );
+        ).filter((entry) => {
+            const anchorId = decodeURIComponent(entry.hash?.substring(1) ?? "");
+            const heading = anchorId ? document.getElementById(anchorId) : null;
+            const inSummary =
+                heading instanceof HTMLElement && !!heading.closest(".ai-summary");
+            if (inSummary) entry.remove();
+            return !inSummary;
+        });
 
         if (this.tocEntries.length === 0) return;
 

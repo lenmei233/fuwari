@@ -8,6 +8,26 @@ category: '分享记录'
 draft: false 
 lang: 'zh_CN'
 ---
+:::ai-summary{model="deepseek-v4.1-flash" provider="deepseek" updated="2026-09-27"}
+
+作者介绍并演示了自己维护的开源项目 Lap——一个基于工作量证明（PoW）的轻量级无感验证码替代方案，不弹拼图、不读人脸、不做跨站追踪，浏览器在后台「算一点数学题」就完成验证，并且能零成本跑在 Cloudflare 上。
+
+### 🔐 是什么
+
+Lap 本质上是 CAPTCHA 的替代品：当有人提交你的表单时，他的浏览器会默默完成一系列哈希计算来证明「我不是一个低成本脚本」，通过后才放行。它基于开源项目 Cap 做了 rebrand，把原本需要 Node + Redis/Valkey 的架构移植成纯 Serverless 方案。核心特点是零基础设施（一个 Cloudflare Worker + 一个 D1 数据库）、免费额度内运行、widget 由 Worker 自己托管、没有埋点和 Cookie、挑战由离用户最近的节点签发。
+
+### ⚙️ 工作原理
+
+浏览器先向 `POST /:siteKey/challenge` 请求挑战，再暴力求解 nonce 使 `sha256(salt + nonce)` 以 target 开头（即 PoW），随后提交答案换取一次性的 redeem token，后端用这个 token 去 `/siteverify` 换取最终结果。机器人要在极短时间内完成巨量哈希计算，成本极高；真人浏览器只花一瞬间，几乎无感，而且每个 token 验证一次即作废。
+
+### 🚀 部署三选一
+
+推荐方案是 Workers + D1：克隆仓库后创建 D1 数据库、把 `database_id` 填进 `wrangler.toml`、执行迁移、用 `wrangler secret put` 设置 `ADMIN_KEY`，最后 `npm run deploy` 并通过 `/health` 验证。备选方案有适配 Pages 的 catch-all 路由（绑定需在控制台手动添加）和 GitHub Actions 自动部署（配好 API Token 与 Account ID 两个 Secret 即可）。
+
+### 🎛️ 调参建议
+
+创建站点密钥时可以配置 `difficulty`（默认 4，每 +1 工作量约 ×16，指数增长）、`challengeCount`（默认 80，线性增长）、`instrumentation`、`blockAutomatedBrowsers` 以及单 IP 限流。作者的调优建议是：想更严格时优先提高 `challengeCount` 而非 `difficulty`，耗时更平滑可控；默认参数在现代笔记本上大约 1 秒完成。
+::::
 
 ## 前言
 

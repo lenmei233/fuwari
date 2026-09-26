@@ -1,4 +1,5 @@
 import type {
+	AiSummaryConfig,
 	CommentConfig,
 	ExpressiveCodeConfig,
 	LicenseConfig,
@@ -90,6 +91,20 @@ export const licenseConfig: LicenseConfig = {
 	enable: true,
 	name: "CC BY-NC-SA 4.0",
 	url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+};
+
+export const aiSummaryConfig: AiSummaryConfig = {
+	// 文章正文开头的 AI 总结卡片。摘要内容由作者手动写在 markdown 里：
+	//   :::ai-summary{model="deepseek-chat" provider="deepseek"}
+	//   摘要正文……
+	//   :::
+	enable: true,
+	title: "AI 总结",
+	// 脚注会展示：厂商图标 + 模型名 + 文章最后更新时间
+	// （updated 由插件从 frontmatter 自动补齐，无需手写）
+	showFooter: true,
+	// 流式播放速度，约 320 字/秒，100 字摘要约 0.3 秒播完
+	charsPerSecond: 320,
 };
 
 export const expressiveCodeConfig: ExpressiveCodeConfig = {

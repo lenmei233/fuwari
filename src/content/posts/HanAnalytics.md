@@ -8,6 +8,22 @@ category: '分享记录'
 draft: false 
 lang: 'zh_CN'
 ---
+:::ai-summary{model="deepseek-v4.1-flash" provider="deepseek" updated="2026-09-27"}
+
+作者把博客原本只能登录 Cloudflare 后台查看的 Web Analytics，换成了一个可以公开访问的统计仪表板：借助开源项目 HanAnalytics，把「数据只对站长可见」变成「一个链接即可查看」，且全程托管在 Cloudflare 免费额度内。
+
+### 📌 为什么需要它
+
+博客部署在 Cloudflare Pages 上，官方 Web Analytics 虽然够用，但换个设备查看就要登录并逐层点开菜单，数据也只对站长可见。作者希望有一个随时能打开、还能分享给别人的仪表板。
+
+### 🔧 部署关键步骤
+
+全文按实测顺序走了七个环节：Fork 仓库、复制 Account ID、创建权限合适的 API token、开启 Analytics Engine（变量名 `AnalyticsBinding`、数据集 `AnalyticsDataset`）、创建 Pages 项目并填写 `CLOUDFLARE_ACCOUNT_ID` 等环境变量、在「绑定」里关联 Analytics Engine，最后重新部署访问仪表板。文章还补充了密码访问与网站白名单两项安全功能，并提醒 Analytics Engine 采用抽样统计，数据存在一定误差。
+
+### 🔗 接入自己的网站
+
+部署完成后首次打开没有数据，需要在网站底部插入一行 tracker 脚本并带上自定义的 `data-website-id`，产生有效访问后仪表板即可看到数据。文末附上了作者的演示站点。
+::::
 
 ## 前言
 

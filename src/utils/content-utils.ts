@@ -112,3 +112,33 @@ export async function getCategoryList(): Promise<Category[]> {
 	}
 	return ret;
 }
+
+export type SiteStats = {
+	/** 全站文章总字数（与文章页显示的单篇字数口径一致） */
+	totalWords: number;
+	/** 分类数量（与侧边栏「分类」板块列出的条目一致） */
+	categoryCount: number;
+};
+
+// 汇总统计，供侧边栏「状态」板块使用
+export async function getSiteStats(): Promise<SiteStats> {
+	const allBlogPosts = await getCollection("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	// 单篇文章的字数由 remark-reading-time 插件在渲染时写入 frontmatter，
+	// 因此需要渲染后才能取到，这样总和才与文章页、列表页显示的数字一致
+	let totalWords = 0;
+	for (const post of allBlogPosts) {
+		const { remarkPluginFrontmatter } = await post.render();
+		totalWords += Number(remarkPluginFrontmatter.words) || 0;
+	}
+
+	// 复用 getCategoryList 的归类规则，保证与「分类」板块展示的数量一致
+	const categories = await getCategoryList();
+
+	return {
+		totalWords,
+		categoryCount: categories.length,
+	};
+}

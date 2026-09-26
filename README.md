@@ -72,6 +72,37 @@ In addition to Astro's default support for [GitHub Flavored Markdown](https://gi
 - GitHub repository cards ([Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#github-repository-cards))
 - Enhanced code blocks with Expressive Code ([Preview](https://fuwari.vercel.app/posts/expressive-code/) / [Docs](https://expressive-code.com/))
 
+
+### AI 总结块
+
+在文章正文最前面写一个块，即可在该篇文章顶部生成 AI 总结卡片。摘要内容由你自己写定，
+访客浏览时会以「流式」动画逐字出现；播放结束后才展示模型名、厂商图标与文章最后更新时间。
+
+```md
+:::ai-summary{model="deepseek-chat" provider="deepseek"}
+本文介绍了 Lap 这一基于工作量证明的无感验证码方案，并演示其在 Cloudflare Workers + D1 上的部署流程，适合想自托管验证码的读者。
+:::
+```
+
+- `model`：脚注展示的模型名
+- `provider`：用于匹配厂商图标，未命中时回退到通用图标（不会臆造品牌 logo）
+- 更新时间从 frontmatter 的 `updated` 自动取，缺失时回落到 `published`，无需手写
+- 摘要内容会完整出现在 HTML 里，SEO 与 Pagefind 搜索都不受影响；禁用 JS 时也照样可见
+- 访客系统开启「减少动效」时直接完整呈现，不做逐字播放
+- 开关与播放速度在 `src/config.ts` 的 `aiSummaryConfig` 里调整
+
+当前支持的 `provider` 与图标对应关系：
+
+| provider | 图标 |
+|:---------|:-----|
+| `openai` | OpenAI |
+| `anthropic` | Anthropic |
+| `deepseek` | DeepSeek |
+| `gemini` / `googlegemini` | Google Gemini |
+| `qwen` | 通义千问 |
+| `google` / `meta` / `microsoft` / `cloudflare` / `baidu` | 对应品牌 |
+| `huggingface` / `ollama` / `perplexity` | 对应品牌 |
+| 其它值 | 通用星光图标 |
 ## ⚡ Commands
 
 All commands are run from the root of the project, from a terminal:
