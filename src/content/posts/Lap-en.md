@@ -2,7 +2,7 @@
 title: Deploy Your Own Invisible CAPTCHA on Cloudflare for Free — An Intro and Deployment Guide to Lap
 published: 2026-08-25
 description: 'Lap is a lightweight, open-source CAPTCHA alternative built on proof-of-work. This post explains how it works and walks you through deploying it on Cloudflare Workers + D1.'
-image: '/images/Lap.png'
+image: '/images/Lap.webp'
 tags: [Lap, Cloudflare, CAPTCHA, Verification]
 category: 'Sharing'
 draft: false 

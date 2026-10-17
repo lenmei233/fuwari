@@ -14,12 +14,12 @@ export const siteConfig: SiteConfig = {
 	subtitle: "技术分享与日常记录",
 	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
 	themeColor: {
-		hue: 250, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
+		hue: 210, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: false, // Hide the theme color picker for visitors
 	},
 	banner: {
 		enable: true,
-		src: "/images/demo-banner.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		src: "/images/banner.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
 		credit: {
 			enable: false, // Display the credit text of the banner image
@@ -33,7 +33,7 @@ export const siteConfig: SiteConfig = {
 	},
 	favicon: [
 		{
-			src: "/images/avatar.png", // Path of the favicon, relative to the /public directory
+			src: "/images/favicon.png", // Path of the favicon, relative to the /public directory
 			sizes: "any", // (Optional) Size of the favicon; "any" works for all sizes and both light/dark modes
 		},
 	],
@@ -63,9 +63,9 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "/images/avatar.png", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+	avatar: "/images/avatar.webp", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "lenmei233",
-	bio: "A person who loves coding , Welcome to my blog!",
+	bio: "一个热爱折腾的开发者，记录技术分享与日常。",
 	links: [
 		{
 			name: "QQ",

@@ -2,7 +2,7 @@
 title: 使用Cloudflare部署你的免费网站统计 -- Web-Analytics
 published: 2025-10-18
 description: '本站统计功能实现的方法 '
-image: '/images/68747470733a2f2f69302e77702e636f6d2f757869616f68616e2e6769746875622e696f2f76322f323032342f30392f313732373030373933372e77656270.jpg'
+image: '/images/68747470733a2f2f69302e77702e636f6d2f757869616f68616e2e6769746875622e696f2f76322f323032342f30392f313732373030373933372e77656270.webp'
 tags: [Web-Analytics, Web, Cloudflare]
 category: '分享记录'
 draft: false 
@@ -29,19 +29,21 @@ lang: 'zh_CN'
 
 我的博客部署在 Cloudflare Pages 上，Cloudflare 作为 “赛博菩萨” 免费提供边缘服务器托管网站，还提供了 Web-Analytics 供站长查看网站统计数据。
 
-![博客统计截图](/images/Screenshot%202025-10-18%20at%2020-04-29%20分析和日志%20Web%20Analytics%20Cloudflare.png)
+![博客统计截图](/images/Screenshot%202025-10-18%20at%2020-04-29%20分析和日志%20Web%20Analytics%20Cloudflare.webp)
 
-这一切看似不错，但在其他设备上查看数据时，需要登录 Cloudflare 并逐层打开菜单，非常不便，且数据仅限自己查看。经过一番搜索，我发现了一个 GitHub 开源项目可以解决这个问题。
+这一切看似不错，但有个很现实的痛点：官方的统计只能站长自己看，想在手机上瞄一眼数据，得先登录 Cloudflare，再一层层点开菜单——等我找到数据，摸鱼的心情都没了。
 
-## 一、HanAnalytics 特点
+而且数据这东西，自己看和能分享是两回事。我就想要一个**打开链接就能看、还能甩给别人看**的仪表板。搜了一圈，发现 GitHub 上有个叫 HanAnalytics 的开源项目，正好解决这个问题，于是决定亲手部署一套。
+
+## 一、HanAnalytics 是啥
 
 ::github{repo="uxiaohan/HanAnalytics"}
 
-Han-Analytics 是一个简单的网络分析跟踪器和仪表板，托管在被称为 “赛博菩萨” 的 Cloudflare 上，可无成本稳定运行，每天可达 10 万次免费统计。无需域名、服务器、数据库，托管在 Cloudflare Pages 上即可快速部署网站分析仪表板。
+HanAnalytics 是个简单的网站访问统计 + 仪表板，专门跑在 Cloudflare 上。最大的卖点：**全程零成本**——不需要域名、不需要服务器、不需要数据库，Cloudflare Pages 直接托管，每天 10 万次统计免费额度，个人博客根本用不完。
 
-## 二、实测部署
+## 二、实测部署（跟着点就行）
 
-通过阅读 GitHub 仓库的 Readme.md，我了解到其作用和[部署教程](https://www.vvhan.com/article/han-analytics)，于是准备尝试。
+部署前我先翻了仓库的 Readme 和[这篇部署教程](https://www.vvhan.com/article/han-analytics)，流程不复杂，就是步骤有点多。下面是我实测走通的完整顺序，照着点就行。
 
 需要准备：
 
@@ -61,7 +63,7 @@ Han-Analytics 是一个简单的网络分析跟踪器和仪表板，托管在被
 
 然后点击 “Use this template”，在弹出的菜单中选择 “Create a new repository”
 
-![创建新仓库截图](/images/e5bb5d834fa4ae78f30849151cd10bef.png)
+![创建新仓库截图](/images/e5bb5d834fa4ae78f30849151cd10bef.webp)
 
 之后根据自身需求选择是否公开仓库。
 
@@ -69,25 +71,25 @@ Han-Analytics 是一个简单的网络分析跟踪器和仪表板，托管在被
 
 进入 Cloudflare 主页后，按照提示点击左侧 “计算和 AI” 菜单，在二级菜单中点击 “Workers 和 Pages”
 
-![Workers和Pages截图](/images/693fc725bd4ee201e909e726858aef22.png)
+![Workers和Pages截图](/images/693fc725bd4ee201e909e726858aef22.webp)
 
 进入 Workers 和 Pages 页面后，点击右侧 Account ID 进行复制备用
 
-![复制Account ID截图](/images/326c1d17e4ac72508154168205fbd34e.png)
+![复制Account ID截图](/images/326c1d17e4ac72508154168205fbd34e.webp)
 
 ### 3. 创建 Cloudflare API token
 
 访问[Cloudflare API token](https://dash.cloudflare.com/profile/api-tokens)页面，按照操作截图指引创建 API token 并保存备用。创建时需注意权限配置，确保能满足 HanAnalytics 的运行需求。
 
-![API token创建截图1](/images/8736d3b2c0af89f3498f9bd54f0469c3.png)
+![API token创建截图1](/images/8736d3b2c0af89f3498f9bd54f0469c3.webp)
 
-![API token创建截图2](/images/80cfcaa5f48e8ad80ab3eb089f605b0a.png)
+![API token创建截图2](/images/80cfcaa5f48e8ad80ab3eb089f605b0a.webp)
 
-![API token创建截图3](/images/fcee8f37-b259-436d-ad4e-6c9da2ab193e.png)
+![API token创建截图3](/images/fcee8f37-b259-436d-ad4e-6c9da2ab193e.webp)
 
 ### 4. 开启分析引擎
 
-在 Cloudflare 中，点击 Analytics Engine，填写下面的信息
+在 Cloudflare 里找到 Analytics Engine，按下面填：
 ```
 # 变量名
 AnalyticsBinding
@@ -95,15 +97,17 @@ AnalyticsBinding
 AnalyticsDataset
 ```
 
-![分析引擎设置截图1](/images/Pasted%20image%2020251018202650.png)
+![分析引擎设置截图1](/images/Pasted%20image%2020251018202650.webp)
 
-![分析引擎设置截图2](/images/Pasted%20image%2020251018202904.png)
+![分析引擎设置截图2](/images/Pasted%20image%2020251018202904.webp)
+
+> 变量名和数据集名称后面绑定时要一字不差地对上，建议直接复制粘贴，别手打。
 
 ### 5. 创建 Pages 项目
 
 登录 Cloudflare，创建 Pages 项目，链接之前 Fork 的 GitHub 仓库。架构选择 Vue，然后填入环境变量，环境变量含义如下,大部分人只需要按图片一样填写二个：
 
-![环境变量设置截图](/images/Pasted%20image%2020251018203216.png)
+![环境变量设置截图](/images/Pasted%20image%2020251018203216.webp)
 
 ```
 # Cloudflare Workers ID
@@ -121,13 +125,13 @@ CLOUDFLARE_WEBSITE_WHITELIST = # 可统计的白名单
 
 Cloudflare Pages 部署完成后，在项目的 “设置” 中配置 “绑定”，添加 “Analytics Engine”，变量名称填写 “AnalyticsBinding”，数据集填写 “AnalyticsDataset” 并保存，然后重新部署。
 
-![绑定设置截图](/images/8ad2647d310002722106f5d5e27c48c6.png)
+![绑定设置截图](/images/8ad2647d310002722106f5d5e27c48c6.webp)
 
 ### 7. 访问仪表板
 
-重新部署完成后，访问 [https://xxxxxx.pages.dev](https://xxxxxx.pages.dev) 即可访问网站分析仪表板（注意：首次部署生成的域名可能需要几分钟时间生效，请耐心等待）。
+重新部署完成后，访问 `https://xxxxxx.pages.dev` 就能看到仪表板了（注意：首次部署的域名可能要几分钟才生效，别急着刷新）。
 
-本站演示:[https://analytics.lenmei233.top/](https://analytics.lenmei233.top/)
+本站演示：[https://analytics.lenmei233.top/](https://analytics.lenmei233.top/) ——没错，现在你也能看到我的博客数据了。
 
 ## 三、集成到网站
 
@@ -144,8 +148,8 @@ Cloudflare Pages 部署完成后，在项目的 “设置” 中配置 “绑定
 
 HanAnalytics 还新增了 “密码访问” 及 “网站白名单” 功能。开启密码后，输入密码才可访问（默认无需密码）；网站白名单功能开启后，只有加白的网站才可计入统计（默认任意网站都可统计）。
 
-## 五、数据相关说明
+## 五、关于数据准确度的一点说明
 
-数据问题一般是由于 Cloudflare Analytics Engine 无法访问网站导致的，请确保网站可以正常访问，并且 Cloudflare Analytics Engine 已经开启。
+如果部署后没数据，先确认网站能正常访问、Analytics Engine 已开启——九成的数据问题都出在这两处。
 
-HanAnalytics 使用 Cloudflare Analytics Engine 数据集，完全通过 HTTP 使用 Cloudflare 的 API 进行通信，数据来源于 Cloudflare Analytics Engine 数据集。Cloudflare Analytics Engine 使用抽样技术，以可承受的规模化方式实现大量数据提取 / 查询（这类似于大多数其他分析工具，如 Google Analytics 上的抽样）。
+另外提一句：HanAnalytics 底层用的是 Cloudflare Analytics Engine，它**采用抽样统计**（跟 Google Analytics 的抽样一个思路），数据会有一定误差。个人博客看看趋势完全够用，但别拿它当财务报表。

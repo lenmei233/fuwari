@@ -2,7 +2,7 @@
 title: 苦难就是苦难
 published: 2025-12-23
 description: '别再把勋章挂在伤口上了，那很疼'
-image: '/images/20251223.png'
+image: '/images/20251223.webp'
 tags: [讽刺,现实,认知觉醒]
 category: '认知觉醒'
 draft: false 

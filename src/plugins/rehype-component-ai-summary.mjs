@@ -185,16 +185,19 @@ export function AiSummaryComponent(properties, children) {
 
 	// 脚注：播放结束后由 JS 摘掉 is-armed / is-playing 才显示
 	// 用 CSS 类控制可见性而非 hidden 属性 —— 这样禁用 JS 时内容依然可读
-	const footer = h(
-		"div.ai-summary-footer",
-		[
-			vendorIconNode(icon),
-			model ? h("span.ai-summary-model", model) : null,
-			updated
-				? h("span.ai-summary-updated", `${updatedLabel} ${updated}`)
-				: null,
-		].filter(Boolean),
-	);
+	// showFooter 关闭时整个脚注节点都不渲染，避免 visibility:hidden 留下空白占位
+	const footer = hasFooterInfo
+		? h(
+				"div.ai-summary-footer",
+				[
+					vendorIconNode(icon),
+					model ? h("span.ai-summary-model", model) : null,
+					updated
+						? h("span.ai-summary-updated", `${updatedLabel} ${updated}`)
+						: null,
+				].filter(Boolean),
+			)
+		: null;
 
 	const props = {
 		"data-ai-summary": "",
@@ -208,5 +211,5 @@ export function AiSummaryComponent(properties, children) {
 		props["data-ai-footer-empty"] = "";
 	}
 
-	return h("div.ai-summary", props, [header, body, footer, armScriptNode()]);
+	return h("div.ai-summary", props, [header, body, footer, armScriptNode()].filter(Boolean));
 }

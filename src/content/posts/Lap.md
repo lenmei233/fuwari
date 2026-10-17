@@ -2,7 +2,7 @@
 title: 用 Cloudflare 免费部署属于自己的无感验证码：Lap 介绍与部署教程
 published: 2026-08-25
 description: 'Lap 是一个基于工作量证明的轻量级开源验证码替代方案，本文介绍其原理并手把手演示在 Cloudflare Workers + D1 上的部署。'
-image: '/images/Lap.png'
+image: '/images/Lap.webp'
 tags: [Lap, Cloudflare, CAPTCHA, 验证码]
 category: '分享记录'
 draft: false 
